@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :transaction do
+    
+  end
+
 
   factory :user do
     sequence :email {|n| "dummyEmail#{n}@gmail.com" }
