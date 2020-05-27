@@ -62,8 +62,8 @@ end
 # end
 
 gem 'devise'
-gem 'popper_js', '~> 1.11.1'
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'popper_js', '~> 1.16.0'
+gem 'bootstrap', '~> 4.5.0'
 gem 'simple_form'
 
 source 'https://rails-assets.org' do
