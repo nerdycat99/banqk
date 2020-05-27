@@ -1,0 +1,12 @@
+
+<% if user_signed_in? %>
+	<h1>welcome back <%= current_user.username %></h1><br />
+	<h3>please select one of your accounts to proceed</h3><br />
+	<% @accounts.each do | account | %> 
+		<h5>acount number: <%= link_to account_number_for(current_user.id,account.id), account_path(account) %></h5><br />
+	<% end %>
+<% else %>
+	<h1>welcome to bankq</h1><br />
+	<h3>please contact a member fo our staff to find out more about opening an account with us.</h3>
+<% end %>
+

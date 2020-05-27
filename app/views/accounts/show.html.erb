@@ -1,0 +1,8 @@
+<h1>account <%= account_number_for(current_user.id,@account.id) %></h1><br />
+<h2>showing account for <%=current_user.username %></h2>
+<br />
+<h5>acount balance: <%= number_with_precision(@account.balance, :precision => 2) %></h5>
+<%= link_to 'make a payment', root_path %>
+<br /><br />
+<h2>transaction history </h2>
+<br />
