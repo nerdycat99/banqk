@@ -1,12 +1,8 @@
 <h1>make a transaction</h1>
 <br /><br />
-<% all_accounts_dropdown = [] %>
-<% @all_accounts.each do |account| %>
-	<% all_accounts_dropdown << [account.user.username, account.id] unless account.user.id == current_user.id %>
-<% end %>
-<%= simple_form_for Transaction.new, url: account_transactions_path(@account) do |f| %>
+<%= simple_form_for @transaction, url: account_transactions_path(@account) do |f| %>
   <%= f.input :amount %>
-  <%= f.input :payee_id, :collection => all_accounts_dropdown %>
+  <%= f.input :payee_id, :collection => all_other_users() %>
   <%= f.hidden_field :payer_id, :value => @account.id, :id=>"payer"%>
   <%= f.submit "submit", class: 'my-btn' %>
 <% end %>

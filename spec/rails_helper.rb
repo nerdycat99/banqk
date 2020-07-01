@@ -34,9 +34,16 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
 
-  config.include Devise::TestHelpers, type: :controller
-  config.include Devise::TestHelpers, type: :view
-  config.include Devise::TestHelpers, type: :model
+  config.infer_spec_type_from_file_location!
+
+  # config.include Devise::TestHelpers, type: :controller
+  # config.include Devise::TestHelpers, type: :view
+  # config.include Devise::TestHelpers, type: :model
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::ControllerHelpers, type: :model
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -17,17 +17,17 @@ RSpec.describe TransactionsController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
 
-    it "should prevent a payment if the payer has insufficient funds" do
-      sign_in @user1  
-      post :create, params: { account_id: @account1.id, transaction: { amount: '20000' } }
-      expect(response).to redirect_to new_account_transaction_path(@account1)
-    end
+    # it "should prevent a payment if the payer has insufficient funds" do
+    #   sign_in @user1  
+    #   post :create, params: { account_id: @account1.id, transaction: { amount: '20000' } }
+    #   expect(response).to redirect_to new_account_transaction_path(@account1)
+    # end
 
-    it "should prevent a payment for a negative amount" do
-      sign_in @user1  
-      post :create, params: { account_id: @account1.id, transaction: { amount: '-20000' } }
-      expect(response).to redirect_to new_account_transaction_path(@account1)
-    end
+    # it "should prevent a payment for a negative amount" do
+    #   sign_in @user1  
+    #   post :create, params: { account_id: @account1.id, transaction: { amount: '-20000' } }
+    #   expect(response).to redirect_to new_account_transaction_path(@account1)
+    # end
 
 
   end

@@ -27,11 +27,11 @@ RSpec.describe AccountsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
-    it "should show a 404 if a user attempts to view an account that does not exist" do
+    it "should show a 403 forbidden if a user attempts to view an account that does not exist" do
       user = FactoryBot.create(:user)
       sign_in user
       get :show, params: {id: 'NONEXIST'}
-      expect(response).to have_http_status(:not_found)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it "should show the transactions for a given account" do

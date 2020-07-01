@@ -3,38 +3,35 @@ class TransactionsController < ApplicationController
   include AccountsHelper
 
   before_action :authenticate_user!
+  before_action :get_users_account, only: [:new, :create]
+  before_action :require_correct_user_logged_in, only: [:new, :create]
 
   def new
-    @account = Account.find_by_id(params[:account_id])
-    if @account.user != current_user
-      redirect_to root_path, :notice => "Access Forbiden."
-    else
-      @all_accounts = Account.all.includes(:user).load
-    end
+    @transaction = Transaction.new
   end
 
   def create
-    @account = Account.find_by_id(params[:account_id])
-    if get_balance_for(@account) - params[:transaction][:amount].to_i >= 0
-      if params[:transaction][:amount].to_i <= 0
-        redirect_to new_account_transaction_path(@account), :notice => "Amount to transfer must be more than zero."
-      else
-        @transaction = Transaction.create(transaction_params)
-        if @transaction.valid?
-          redirect_to account_path(@account), :notice => "Payment was successful."
-        else
-          render :new, status: :unprocessable_entity
-        end
-      end
+    @transaction = Transaction.new(transaction_params)
+    if @transaction.save
+      redirect_to account_path(@account), :notice => "Payment was successful."
     else
-      redirect_to new_account_transaction_path(@account), :notice => "Insufficient Funds, please try again"
+      render 'new'
     end
-
   end
 
 
 
   private
+
+  # def require_correct_user_logged_in 
+  #   if !@account || @account.user != current_user
+  #     redirect_to root_path, :notice => "Access Forbiden."
+  #   end
+  # end
+
+  def get_users_account
+    @account = Account.find_by_id(params[:account_id])
+  end
 
   def transaction_params
     params.require(:transaction).permit(:amount, :payee_id, :payer_id)
